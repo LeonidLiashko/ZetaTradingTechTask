@@ -15,7 +15,6 @@ public class Node
     
     public Node Parent { get; set; } = null!;
     
-    [Required]
     public int TreeId { get; set; }
     
     public Tree Tree { get; set; } = null!;
