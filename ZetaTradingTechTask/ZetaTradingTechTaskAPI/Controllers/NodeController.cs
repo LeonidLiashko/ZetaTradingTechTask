@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using ZetaTradingTechTaskService.Interfaces;
 using ZetaTradingTechTaskService.Services;
 
 namespace ZetaTradingTechTaskAPI.Controllers;
@@ -7,9 +8,9 @@ namespace ZetaTradingTechTaskAPI.Controllers;
 [Route("api.user.tree")]
 public class NodeController : Controller
 {
-    private readonly NodeService _nodeService;
+    private readonly INodeService _nodeService;
 
-    public NodeController(NodeService nodeService)
+    public NodeController(INodeService nodeService)
     {
         _nodeService = nodeService;
     }

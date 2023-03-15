@@ -1,3 +1,6 @@
+using ZetaTradingTechTaskService.Interfaces;
+using ZetaTradingTechTaskService.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<INodeService, NodeService>();
+builder.Services.AddScoped<ITreeService, TreeService>();
 
 var app = builder.Build();
 
@@ -21,5 +26,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+//app.UseExceptionHandler()
 
 app.Run();

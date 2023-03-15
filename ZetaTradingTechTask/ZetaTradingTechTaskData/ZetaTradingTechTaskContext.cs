@@ -8,6 +8,8 @@ public class ZetaTradingTechTaskContext : DbContext
     public DbSet<Node> Nodes { get; set; }
     
     public DbSet<Tree> Trees { get; set; }
+    
+    //public DbSet<ServerException> Exceptions { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
