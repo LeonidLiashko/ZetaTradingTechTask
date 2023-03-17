@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ZetaTradingTechTaskData;
 using ZetaTradingTechTaskData.Models;
+using ZetaTradingTechTaskService.Exceptions;
 using ZetaTradingTechTaskService.Interfaces;
 
 namespace ZetaTradingTechTaskService.Services;
@@ -15,7 +16,7 @@ public class NodeService : INodeService
 
         var parent = await context.Nodes.FirstOrDefaultAsync(x => x.Id == parentNodeId);
         if (parent == null)
-            throw new Exception($"Parent node must exists. No node with id {parentNodeId}");
+            throw new SecureException($"Parent node must exists. No node with id {parentNodeId}");
         
         await SiblingNameCheck(parentNodeId, nodeName, context);
 
@@ -38,7 +39,7 @@ public class NodeService : INodeService
         
         var children = context.Nodes.Where(x => x.ParentId == nodeId);
         if (children.Any())
-            throw new Exception($"You have to delete all children nodes first. Parent node Id: {nodeId}");
+            throw new SecureException($"You have to delete all children nodes first. Parent node Id: {nodeId}");
         
         var node = await CheckGetNode(nodeId, context);
 
@@ -65,7 +66,7 @@ public class NodeService : INodeService
     {
         var node = await context.Nodes.FirstOrDefaultAsync(x => x.Id == nodeId);
         if (node == null)
-            throw new Exception($"Node does not exist. Node Id: {nodeId}");
+            throw new SecureException($"Node does not exist. Node Id: {nodeId}");
         return node;
     }
 
@@ -73,7 +74,7 @@ public class NodeService : INodeService
     {
         var tree = await context.Trees.FirstOrDefaultAsync(x => x.Name == treeName);
         if (tree == null)
-            throw new Exception($"No tree with name: {treeName}");
+            throw new SecureException($"No tree with name: {treeName}");
         return tree;
     }
 
@@ -81,6 +82,6 @@ public class NodeService : INodeService
     {
         var siblings = await context.Nodes.Where(x => x.ParentId == parentNodeId && x.Name == nodeName).ToListAsync();
         if (siblings.Any())
-            throw new Exception($"A new node name must be unique across all siblings. Node name: {nodeName}");
+            throw new SecureException($"A new node name must be unique across all siblings. Node name: {nodeName}");
     }
 }

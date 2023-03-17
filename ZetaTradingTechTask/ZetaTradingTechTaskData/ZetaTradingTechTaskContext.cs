@@ -9,7 +9,7 @@ public class ZetaTradingTechTaskContext : DbContext
     
     public DbSet<Tree> Trees { get; set; }
     
-    //public DbSet<ServerException> Exceptions { get; set; }
+    public DbSet<ExceptionData> Exceptions { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
