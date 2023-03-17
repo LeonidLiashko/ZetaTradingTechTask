@@ -2,13 +2,7 @@ namespace ZetaTradingTechTaskService.Exceptions;
 
 public class SecureException : Exception
 {
-    public string Type { get; set; }
-    
-    public int Id { get; set; }
-
-    public SecureException(string name, string type, int id) : base(name)
+    public SecureException(string message) : base(message)
     {
-        Type = type;
-        Id = id;
     }
 }
