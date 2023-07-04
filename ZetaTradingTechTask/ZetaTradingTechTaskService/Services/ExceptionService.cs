@@ -10,7 +10,7 @@ namespace ZetaTradingTechTaskService.Services;
 
 public class ExceptionService : IExceptionService
 {
-    public async Task<int> SaveException(DateTime createdAt, string parameters, string stackTrace, string message)
+    public async Task<ExceptionModel> SaveException(DateTime createdAt, string parameters, string stackTrace, string message)
     {
         await using var context = new ZetaTradingTechTaskContext();
         var exception = new ExceptionData
@@ -22,7 +22,7 @@ public class ExceptionService : IExceptionService
         };
         context.Exceptions.Add(exception);
         await context.SaveChangesAsync();
-        return exception.EventId;
+        return new ExceptionModel(exception);
     }
 
     public async Task<ExceptionModel> GetSingle(int id)

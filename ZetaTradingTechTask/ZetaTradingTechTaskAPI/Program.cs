@@ -14,15 +14,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<INodeService, NodeService>();
 builder.Services.AddScoped<ITreeService, TreeService>();
 builder.Services.AddScoped<IExceptionService, ExceptionService>();
-builder.Services.AddControllers(options =>
-{
-    options.Filters.Add<HttpResponseExceptionFilter>();
-});
-builder.Services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
 
 var app = builder.Build();
 
-//app.UseExceptionHandler("/error");
+app.UseExceptionHandler("/api.user.journal/error");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -31,8 +26,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
 
 app.MapControllers();
 
